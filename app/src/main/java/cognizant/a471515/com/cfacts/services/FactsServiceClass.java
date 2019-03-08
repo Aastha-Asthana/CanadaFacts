@@ -4,6 +4,9 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import cognizant.a471515.com.cfacts.interactor.FactsServiceInteractor;
 import cognizant.a471515.com.cfacts.listener.APIResponseListener;
 import cognizant.a471515.com.cfacts.models.FactsCanadaResponse;
@@ -25,7 +28,10 @@ public class FactsServiceClass implements FactsServiceInteractor {
             public void onResponse(Call<FactsCanadaResponse> call, Response<FactsCanadaResponse> response) {
                 Log.d("Retrofit",response.toString());
                 if(response.isSuccessful() && response.body() != null){
-                    listener.onSuccess(response);
+                    FactsCanadaResponse factsCanadaResponse = response.body();
+                    listener.onSuccess(factsCanadaResponse);
+                }else{
+                    listener.onError();
                 }
 
             }
@@ -36,4 +42,5 @@ public class FactsServiceClass implements FactsServiceInteractor {
             }
         });
     }
+
 }

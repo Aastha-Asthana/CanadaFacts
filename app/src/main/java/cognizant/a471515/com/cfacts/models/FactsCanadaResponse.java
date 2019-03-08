@@ -10,8 +10,8 @@ public class FactsCanadaResponse implements Serializable {
     @SerializedName("title")
     private String title;
 
-    @SerializedName("row")
-    private List<FactsCanadaRow> row;
+    @SerializedName("rows")
+    private List<FactsCanadaRow> rows;
 
     public String getTitle() {
         return title;
@@ -22,11 +22,11 @@ public class FactsCanadaResponse implements Serializable {
     }
 
     public List<FactsCanadaRow> getRow() {
-        return row;
+        return rows;
     }
 
-    public void setRow(List<FactsCanadaRow> row) {
-        this.row = row;
+    public void setRow(List<FactsCanadaRow> rows) {
+        this.rows = rows;
     }
 
 
