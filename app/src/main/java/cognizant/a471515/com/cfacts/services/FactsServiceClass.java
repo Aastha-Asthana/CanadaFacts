@@ -3,18 +3,20 @@ package cognizant.a471515.com.cfacts.services;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
+
+import cognizant.a471515.com.cfacts.interactor.FactsServiceInteractor;
 import cognizant.a471515.com.cfacts.listener.APIResponseListener;
 import cognizant.a471515.com.cfacts.models.FactsCanadaResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FactsServiceClass {
+public class FactsServiceClass implements FactsServiceInteractor {
 
     private FactsServiceInterface factsServiceInterface;
 
-
-    public void getCanadaFactsList(final APIResponseListener listener, final Context context){
+    @Override
+    public void getFactsList(final APIResponseListener listener) {
         factsServiceInterface = ApiClient.getClient().create(FactsServiceInterface.class);
 
         Call<FactsCanadaResponse> call = factsServiceInterface.getFactsList();
@@ -22,8 +24,10 @@ public class FactsServiceClass {
             @Override
             public void onResponse(Call<FactsCanadaResponse> call, Response<FactsCanadaResponse> response) {
                 Log.d("Retrofit",response.toString());
-                listener.onSuccess(response);
-                Toast.makeText(context,"Success",Toast.LENGTH_SHORT).show();
+                if(response.isSuccessful() && response.body() != null){
+                    listener.onSuccess(response);
+                }
+
             }
 
             @Override
@@ -31,6 +35,5 @@ public class FactsServiceClass {
                 listener.onError();
             }
         });
-
     }
 }

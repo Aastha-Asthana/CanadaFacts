@@ -1,4 +1,9 @@
 package cognizant.a471515.com.cfacts.interactor;
 
-public class FactsServiceInteractor {
+import cognizant.a471515.com.cfacts.listener.APIResponseListener;
+
+public interface FactsServiceInteractor {
+
+    void getFactsList(final APIResponseListener listener);
+
 }
