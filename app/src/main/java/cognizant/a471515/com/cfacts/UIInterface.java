@@ -10,5 +10,6 @@ public interface UIInterface {
     void showPullToRefreshLoader();
     void showSpinner();
     void hideSpinner();
+    void updateActionBar(String title);
 
 }

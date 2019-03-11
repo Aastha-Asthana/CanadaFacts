@@ -25,6 +25,7 @@ public class FactsPresenterImpl implements FactsPresenter {
             public void onSuccess(Object dataObject) {
                 factsUiInterface.hideSpinner();
                 factsUiInterface.updateUI(getFactsList((FactsCanadaResponse) dataObject));
+                factsUiInterface.updateActionBar(((FactsCanadaResponse) dataObject).getTitle());
             }
 
             @Override

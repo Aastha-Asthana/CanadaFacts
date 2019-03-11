@@ -11,6 +11,7 @@
     android:layout_height="wrap_content"
     android:textSize="20dp"
     android:textStyle="bold"
+    android:textColor="@color/colorCanadaRed"
     android:text="title"/>
 
     <RelativeLayout
@@ -22,14 +23,24 @@
 
         <ImageView
             android:id="@+id/item_image"
+            android:layout_width="400dp"
+            android:layout_height="200dp" />
+
+        <TextView
+            android:id="@+id/facts_description_heading"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_image"
+            android:text="Description"
+            android:textStyle="bold"
+            android:textColor="@color/colorCanadaRed"
+            android:textSize="16dp"/>
 
         <TextView
             android:id="@+id/facts_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/item_image"
+            android:layout_below="@id/facts_description_heading"
             android:text="description"/>
 
     </RelativeLayout>
