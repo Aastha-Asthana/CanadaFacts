@@ -1,7 +1,8 @@
-package cognizant.a471515.com.cfacts.activities;
+package cognizant.a471515.com.cfacts.ui;
 
 import android.app.ProgressDialog;
 import android.graphics.drawable.ColorDrawable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -11,14 +12,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
-import cognizant.a471515.com.cfacts.FactsPresenter;
-import cognizant.a471515.com.cfacts.FactsPresenterImpl;
-import cognizant.a471515.com.cfacts.FactsRecyclerAdapter;
+
 import cognizant.a471515.com.cfacts.R;
-import cognizant.a471515.com.cfacts.UIInterface;
 import cognizant.a471515.com.cfacts.models.FactsCanadaRow;
 
-public class MainListActivity extends AppCompatActivity implements UIInterface {
+public class MainListActivity extends AppCompatActivity implements FactsUIInterface {
 
     private FactsPresenter presenter;
     private RecyclerView recyclerView;
@@ -29,8 +27,17 @@ public class MainListActivity extends AppCompatActivity implements UIInterface {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new FactsPresenterImpl(this);
         setContentView(R.layout.activity_main_list);
+        initialize();
+        presenter.getFactsCanadaResponse();
+    }
+
+    /**
+     * This method is used to initialize the views of the layout
+     *
+     */
+    private void initialize(){
+        presenter = new FactsPresenterImpl(this);
         swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeContainer);
         swipeRefreshLayout.setOnRefreshListener(onRefreshListener);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -38,8 +45,7 @@ public class MainListActivity extends AppCompatActivity implements UIInterface {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorCanadaRed)));
-       // Fresco.initialize(this);
-        presenter.getFactsCanadaResponse();
+        recyclerView = findViewById(R.id.facts_recycler_liew);
     }
 
     @Override
@@ -51,7 +57,6 @@ public class MainListActivity extends AppCompatActivity implements UIInterface {
     @Override
     public void updateUI(List<FactsCanadaRow> factsCanadaRowList) {
         swipeRefreshLayout.setRefreshing(false);
-        recyclerView = findViewById(R.id.facts_recycler_liew);
         recyclerAdapter = new FactsRecyclerAdapter(factsCanadaRowList,this);
         recyclerView.setAdapter(recyclerAdapter);
         DividerItemDecoration itemDecorator = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
@@ -61,20 +66,16 @@ public class MainListActivity extends AppCompatActivity implements UIInterface {
     }
 
     @Override
-    public void showPullToRefreshLoader() {
-
-    }
-
-    @Override
     public void showSpinner() {
         progress = new ProgressDialog(MainListActivity.this);
         progress.setTitle("Loading");
         progress.setMessage("Wait while loading...");
-        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.setCancelable(false);
         progress.show();
 
 
     }
+
 
     @Override
     public void hideSpinner() {
@@ -88,9 +89,17 @@ public class MainListActivity extends AppCompatActivity implements UIInterface {
         getSupportActionBar().setTitle(title);
     }
 
+    @Override
+    public void showNoDataUpdatedMessage() {
+        swipeRefreshLayout.setRefreshing(false);
+        Snackbar messagebar = Snackbar.make(swipeRefreshLayout,"No new data found",Snackbar.LENGTH_LONG);
+        messagebar.show();
+    }
+
     SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
+            presenter.setSwipeToRefresh(true);
             presenter.getFactsCanadaResponse();
         }
     };

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CFacts</string>
+    <string name="TLS_EXCEPTION">301 TLS Redirect</string>
 </resources>
