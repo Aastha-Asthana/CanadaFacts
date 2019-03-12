@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">CFacts</string>
     <string name="TLS_EXCEPTION">301 TLS Redirect</string>
+    <string name="loader_message_title">Loading</string>
+    <string name="loader_message_description">Please Wait while loading...</string>
+    <string name="no_data_found">No data found</string>
+    <string name="error_message">There is some issue, Please try again later.</string>
+    <string name="no_internet_connecion_message">No Internet Connection found</string>
+    <string name="description"><u>Description</u></string>
 </resources>

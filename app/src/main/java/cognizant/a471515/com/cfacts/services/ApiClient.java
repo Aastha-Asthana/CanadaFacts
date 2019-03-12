@@ -29,47 +29,6 @@ public class ApiClient {
 
     public static Retrofit getClient() {
 
-
-//        X509TrustManager trustManager = null;
-//
-//        try {
-//            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-//            trustManagerFactory.init((KeyStore) null);
-//            TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
-//            if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
-//                throw new IllegalStateException("Unexpected default trust managers:" + Arrays.toString(trustManagers));
-//            }
-//            trustManager = (X509TrustManager) trustManagers[0];
-//        } catch (KeyStoreException | NoSuchAlgorithmException e) {
-//            e.printStackTrace();
-//        }
-//
-//        OkHttpClient.Builder client = new OkHttpClient.Builder()
-//                .readTimeout(10, TimeUnit.SECONDS)
-//                .connectTimeout(10, TimeUnit.SECONDS)
-//                .writeTimeout(10, TimeUnit.SECONDS);
-//
-//        try {
-//            SSLContext sc = SSLContext.getInstance("TLSv1.2");
-//            sc.init(null, new TrustManager[] { trustManager }, null);
-//            client.sslSocketFactory(new Tls12SocketFactory(sc.getSocketFactory()), trustManager);
-//            ConnectionSpec cs = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-//                    .tlsVersions(TlsVersion.TLS_1_2)
-//                    .build();
-//            client.connectionSpecs(Collections.singletonList(cs));
-//        } catch (NoSuchAlgorithmException | KeyManagementException e) {
-//            e.printStackTrace();
-//        }
-//
-//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-//
-//        retrofit = new Retrofit.Builder()
-//                .baseUrl(BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .client(client.build())
-//                .build();
-
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();

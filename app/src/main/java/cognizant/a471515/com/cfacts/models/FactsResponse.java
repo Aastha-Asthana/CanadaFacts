@@ -11,7 +11,7 @@ public class FactsResponse implements Serializable {
     private String title;
 
     @SerializedName("rows")
-    private List<FactsCanadaRow> rows;
+    private List<FactsResponseRow> rows;
 
     public String getTitle() {
         return title;
@@ -21,11 +21,11 @@ public class FactsResponse implements Serializable {
         this.title = title;
     }
 
-    public List<FactsCanadaRow> getRow() {
+    public List<FactsResponseRow> getRow() {
         return rows;
     }
 
-    public void setRow(List<FactsCanadaRow> rows) {
+    public void setRow(List<FactsResponseRow> rows) {
         this.rows = rows;
     }
 

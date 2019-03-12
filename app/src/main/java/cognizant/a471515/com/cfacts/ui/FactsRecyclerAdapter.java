@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,18 +17,21 @@ import java.util.List;
 
 import cognizant.a471515.com.cfacts.FactsUtils;
 import cognizant.a471515.com.cfacts.R;
-import cognizant.a471515.com.cfacts.models.FactsCanadaRow;
+import cognizant.a471515.com.cfacts.models.FactsResponseRow;
 
 public class FactsRecyclerAdapter extends RecyclerView.Adapter<FactsRecyclerAdapter.ViewHolder> {
 
-    private List<FactsCanadaRow> factsList = new ArrayList<>();
+    private List<FactsResponseRow> factsList = new ArrayList<>();
     private Context mContext;
     private FactsUtils factsUtils = new FactsUtils();
     private boolean shouldDownloadAgain = false;
 
-    public FactsRecyclerAdapter(List<FactsCanadaRow> list, Context context){
-        factsList = list;
+    public FactsRecyclerAdapter( Context context) {
         mContext = context;
+    }
+
+    public void getDataList(List<FactsResponseRow> list){
+        factsList = list;
     }
 
     @NonNull
@@ -43,13 +45,12 @@ public class FactsRecyclerAdapter extends RecyclerView.Adapter<FactsRecyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position) {
-            final FactsCanadaRow factsCanadaRow = factsList.get(position);
+            final FactsResponseRow factsCanadaRow = factsList.get(position);
             if(null != factsCanadaRow.getTitle()){
-                viewHolder.title.setText(factsUtils.getAppendedFactsPosition(mContext,position + 1,factsCanadaRow.getTitle()));
+                viewHolder.title.setText(factsUtils.getAppendedFactsPosition(position + 1,factsCanadaRow.getTitle()));
             }else{
                 viewHolder.title.setText("Title Not Available");
             }
-            viewHolder.descriptionTitle.setText(factsUtils.getUnderLinedString("Description"));
             if(null != factsCanadaRow.getDescription()){
                 viewHolder.description.setText(factsCanadaRow.getDescription());
             }else{
@@ -91,10 +92,11 @@ public class FactsRecyclerAdapter extends RecyclerView.Adapter<FactsRecyclerAdap
         notifyDataSetChanged();
     }
 
-    public void addAll(List<FactsCanadaRow> list) {
+    public void addAll(List<FactsResponseRow> list) {
         factsList.addAll(list);
         notifyDataSetChanged();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -109,7 +111,7 @@ public class FactsRecyclerAdapter extends RecyclerView.Adapter<FactsRecyclerAdap
 
             title = (TextView) itemView.findViewById(R.id.facts_title);
             description = (TextView) itemView.findViewById(R.id.facts_description);
-            descriptionTitle = (TextView)itemView.findViewById(R.id.facts_description_heading);
+            descriptionTitle = (TextView) itemView.findViewById(R.id.facts_description_heading);
             factsItemImage = (ImageView) itemView.findViewById(R.id.item_image);
 
         }

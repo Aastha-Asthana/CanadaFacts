@@ -21,18 +21,18 @@ public class FactsServiceClass implements FactsServiceInteractor {
                 @Override
                 public void onResponse(Call<FactsResponse> call, Response<FactsResponse> response) {
                     Log.d("Retrofit", response.toString());
-                    if (null != response && response.isSuccessful() && response.body() != null) {
+                    if (null != response && response.isSuccessful() && response.body() != null && response.code() == 200) {
                         FactsResponse factsResponse = response.body();
                         listener.onSuccess(factsResponse);
                     } else {
-                        listener.onError();
+                        listener.onError(response.body());
                     }
 
                 }
 
                 @Override
                 public void onFailure(Call<FactsResponse> call, Throwable t) {
-                    listener.onError();
+                    listener.onError(t);
                 }
             });
 

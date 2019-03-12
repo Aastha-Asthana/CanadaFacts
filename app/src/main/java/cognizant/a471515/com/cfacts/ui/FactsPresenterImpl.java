@@ -1,13 +1,12 @@
 package cognizant.a471515.com.cfacts.ui;
 
-import android.widget.Toast;
-
+import java.net.UnknownHostException;
 import java.util.List;
 
 import cognizant.a471515.com.cfacts.services.FactsServiceInteractor;
 import cognizant.a471515.com.cfacts.listener.APIResponseListener;
 import cognizant.a471515.com.cfacts.models.FactsResponse;
-import cognizant.a471515.com.cfacts.models.FactsCanadaRow;
+import cognizant.a471515.com.cfacts.models.FactsResponseRow;
 import cognizant.a471515.com.cfacts.services.FactsServiceClass;
 
 public class FactsPresenterImpl implements FactsPresenter {
@@ -34,11 +33,17 @@ public class FactsPresenterImpl implements FactsPresenter {
             }
 
             @Override
-            public void onError() {
+            public void onError(Object errorObject) {
+                factsUiInterface.showErrorImage();
                 if(isSwipeToRefresh){
                     factsUiInterface.showNoDataUpdatedMessage();
                     isSwipeToRefresh = false;
                 }else{
+                    if(errorObject instanceof UnknownHostException){
+                        factsUiInterface.showNoInternetConnectionMessage();
+                    }else{
+                       factsUiInterface.showErrorMessage();
+                    }
                     factsUiInterface.hideSpinner();
                 }
             }
@@ -50,7 +55,7 @@ public class FactsPresenterImpl implements FactsPresenter {
         isSwipeToRefresh = value;
     }
 
-    private List<FactsCanadaRow> getFactsList(FactsResponse factsResponse){
+    private List<FactsResponseRow> getFactsList(FactsResponse factsResponse){
         return factsResponse.getRow();
     }
 }
