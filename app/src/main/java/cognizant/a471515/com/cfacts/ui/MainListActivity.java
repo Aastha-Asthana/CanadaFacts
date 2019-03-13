@@ -71,8 +71,8 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
     @Override
     public void updateUI(List<FactsResponseRow> factsCanadaRowList) {
         errorImage.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
         progress.setVisibility(View.GONE);
-        swipeRefreshLayout.setVisibility(View.VISIBLE);
         swipeRefreshLayout.setRefreshing(false);
         if(factsCanadaRowList.size() > 0) {
             recyclerAdapter.getDataList(factsCanadaRowList);
@@ -96,9 +96,7 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
      */
     @Override
     public void hideSpinner() {
-        if(progress != null ){
             progress.setVisibility(View.GONE);
-        }
     }
 
     /**
@@ -115,7 +113,6 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
      */
     @Override
     public void showNoDataUpdatedMessage() {
-        swipeRefreshLayout.setRefreshing(false);
         Snackbar noUpdateMessage = Snackbar.make(swipeRefreshLayout,getString(R.string.no_data_found),Snackbar.LENGTH_LONG);
         noUpdateMessage.show();
     }
@@ -125,7 +122,6 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
      */
     @Override
     public void showErrorMessage() {
-        swipeRefreshLayout.setRefreshing(false);
         Snackbar noUpdateMessage = Snackbar.make(swipeRefreshLayout,getString(R.string.error_message),Snackbar.LENGTH_LONG);
         noUpdateMessage.show();
     }
@@ -135,7 +131,6 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
      */
     @Override
     public void showNoInternetConnectionMessage() {
-        swipeRefreshLayout.setRefreshing(false);
         Snackbar noUpdateMessage = Snackbar.make(swipeRefreshLayout,getString(R.string.no_internet_connecion_message),Snackbar.LENGTH_LONG);
         noUpdateMessage.show();
     }
@@ -143,7 +138,7 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
     @Override
     public void showErrorImage() {
         progress.setVisibility(View.GONE);
-        swipeRefreshLayout.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
         errorImage.setVisibility(View.VISIBLE);
     }
 

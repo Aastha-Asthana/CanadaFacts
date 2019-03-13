@@ -14,6 +14,8 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
+import cognizant.a471515.com.cfacts.Facts;
+import cognizant.a471515.com.cfacts.R;
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
 import okhttp3.TlsVersion;
@@ -22,8 +24,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-
-    public static final String BASE_URL = "https://dl.dropboxusercontent.com";
 
     private static Retrofit retrofit = null;
 
@@ -35,7 +35,7 @@ public class ApiClient {
 
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Facts.context.getResources().getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();

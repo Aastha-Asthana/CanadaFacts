@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">CFacts</string>
+    <string name="base_url">https://dl.dropboxusercontent.com</string>
     <string name="TLS_EXCEPTION">301 TLS Redirect</string>
     <string name="loader_message_title">Loading</string>
     <string name="loader_message_description">Please Wait while loading...</string>
