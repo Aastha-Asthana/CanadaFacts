@@ -87,7 +87,6 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
      */
     @Override
     public void showSpinner() {
-        progress = new ProgressBar(MainListActivity.this);
         progress.setVisibility(View.VISIBLE);
     }
 
@@ -96,7 +95,7 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
      */
     @Override
     public void hideSpinner() {
-            progress.setVisibility(View.GONE);
+            progress.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -135,9 +134,11 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
         noUpdateMessage.show();
     }
 
+    /**
+     * This method is used to show show error placeholder image in case of error while retrieving the API response
+     */
     @Override
     public void showErrorImage() {
-        progress.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
         errorImage.setVisibility(View.VISIBLE);
     }

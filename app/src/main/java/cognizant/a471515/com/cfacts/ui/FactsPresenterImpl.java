@@ -34,6 +34,7 @@ public class FactsPresenterImpl implements FactsPresenter {
 
             @Override
             public void onError(Object errorObject) {
+                factsUiInterface.hideSpinner();
                 factsUiInterface.showErrorImage();
                 if(isSwipeToRefresh){
                     factsUiInterface.showNoDataUpdatedMessage();
