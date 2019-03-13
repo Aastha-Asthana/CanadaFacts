@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.HashMap;
 
 public class FactsUtils {
 
@@ -45,9 +47,9 @@ public class FactsUtils {
            return writer.toString();
         }
 
-    public <T> T constructUsingGson(String jsonString,Class<T> type) {
-       Gson gson = new GsonBuilder().create();
-       return gson.fromJson(jsonString,type);
-
+    public HashMap<String,String> getOfflineModeMap(String jsonString) {
+        HashMap<String, String> retMap = new Gson().fromJson(
+                jsonString, new TypeToken<HashMap<String, Object>>() {}.getType());
+        return retMap;
     }
 }
