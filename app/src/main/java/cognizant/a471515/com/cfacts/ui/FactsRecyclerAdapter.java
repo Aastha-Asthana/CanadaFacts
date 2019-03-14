@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import cognizant.a471515.com.cfacts.Facts;
 import cognizant.a471515.com.cfacts.FactsUtils;
 import cognizant.a471515.com.cfacts.R;
 import cognizant.a471515.com.cfacts.models.FactsResponseRow;
@@ -24,7 +25,6 @@ public class FactsRecyclerAdapter extends RecyclerView.Adapter<FactsRecyclerAdap
     private List<FactsResponseRow> factsList = new ArrayList<>();
     private Context mContext;
     private FactsUtils factsUtils = new FactsUtils();
-    private boolean shouldDownloadAgain = false;
 
     public FactsRecyclerAdapter( Context context) {
         mContext = context;
@@ -49,12 +49,12 @@ public class FactsRecyclerAdapter extends RecyclerView.Adapter<FactsRecyclerAdap
             if(null != factsCanadaRow.getTitle()){
                 viewHolder.title.setText(factsUtils.getAppendedFactsPosition(position + 1,factsCanadaRow.getTitle()));
             }else{
-                viewHolder.title.setText("Title Not Available");
+                viewHolder.title.setText(mContext.getString(R.string.title_not_available));
             }
             if(null != factsCanadaRow.getDescription()){
                 viewHolder.description.setText(factsCanadaRow.getDescription());
             }else{
-                viewHolder.description.setText("Description Not Available");
+                viewHolder.description.setText(mContext.getString(R.string.description_not_available));
             }
             if(null != factsCanadaRow.getImageHref()) {
                 Picasso.Builder builder = new Picasso.Builder(mContext);

@@ -21,6 +21,7 @@ import cognizant.a471515.com.cfacts.models.FactsResponse;
 import cognizant.a471515.com.cfacts.services.FactsServiceClass;
 import cognizant.a471515.com.cfacts.services.FactsServiceInteractor;
 import cognizant.a471515.com.cfacts.ui.FactsPresenterImpl;
+import cognizant.a471515.com.cfacts.ui.FactsRecyclerAdapter;
 import cognizant.a471515.com.cfacts.ui.FactsUIInterface;
 import cognizant.a471515.com.cfacts.ui.MainListActivity;
 
@@ -40,14 +41,62 @@ import static org.junit.Assert.*;
 
 public class ExampleInstrumentedTest {
 
+    private String noInternetErrorMessage = "There is some issue, Please try again later.";
+
 
     @Rule
     public ActivityTestRule<MainListActivity> activityActivityTestRule = new ActivityTestRule<MainListActivity>(MainListActivity.class);
 
 
     @Test
-    public void checkUI() {
+    public void checkSwipeView() {
         onView(withId(R.id.swipeContainer)).check(matches(isDisplayed()));
+
+    }
+
+    @Test
+    public void checkRecyclerView() {
+        onView(withId(R.id.progressBar_cyclic)).check(matches(isDisplayed()));
+
+    }
+
+    @Test
+    public void checkErrorImage() {
+        try{
+            Thread.sleep(500);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        onView(withText("CFacts")).check(matches(isDisplayed()));
+
+    }
+
+
+    @Test
+    public void testAPISuccess(){
+        try{
+            Thread.sleep(5000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        FactsRecyclerAdapter adapter = new FactsRecyclerAdapter(Facts.context);
+        if(adapter.getItemCount()>0){
+            onView(withId(R.id.facts_title)).check(matches(isDisplayed()));
+        }
+
+    }
+
+    @Test
+    public void testNoInternetError(){
+        try{
+            Thread.sleep(1000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        FactsRecyclerAdapter adapter = new FactsRecyclerAdapter(Facts.context);
+        if(adapter.getItemCount() <= 0){
+            onView(withText(noInternetErrorMessage)).check(matches(isDisplayed()));
+        }
 
     }
 

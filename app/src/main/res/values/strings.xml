@@ -8,4 +8,6 @@
     <string name="error_message">There is some issue, Please try again later.</string>
     <string name="no_internet_connecion_message">Unable to load the page. Please try again later.</string>
     <string name="description"><u>Description</u></string>
+    <string name="title_not_available">Title Not Available</string>
+    <string name="description_not_available">Description Not Available</string>
 </resources>
