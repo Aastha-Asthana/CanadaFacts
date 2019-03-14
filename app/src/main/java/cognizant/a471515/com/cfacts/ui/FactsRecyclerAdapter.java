@@ -30,7 +30,7 @@ public class FactsRecyclerAdapter extends RecyclerView.Adapter<FactsRecyclerAdap
         mContext = context;
     }
 
-    public void getDataList(List<FactsResponseRow> list){
+    public void setDataList(List<FactsResponseRow> list){
         factsList = list;
     }
 
@@ -57,24 +57,17 @@ public class FactsRecyclerAdapter extends RecyclerView.Adapter<FactsRecyclerAdap
                 viewHolder.description.setText("Description Not Available");
             }
             if(null != factsCanadaRow.getImageHref()) {
-                String imageUri = factsCanadaRow.getImageHref();
                 Picasso.Builder builder = new Picasso.Builder(mContext);
                 Picasso picasso = builder.build();
                 builder.listener(new Picasso.Listener() {
                     @Override
                     public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-                       if(exception.getMessage().equalsIgnoreCase(mContext.getString(R.string.TLS_EXCEPTION))){
-                           String stringuri = uri.getPath();
-                           stringuri.replace("http","https");
-                           picasso.load(stringuri).placeholder(R.mipmap.placeholder)
-                                   .into(viewHolder.factsItemImage);
-                       }
+                       exception.printStackTrace();
                     }
                 });
 
                picasso.load(factsCanadaRow.getImageHref()).placeholder(R.mipmap.placeholder)
                         .into(viewHolder.factsItemImage);
-   //             viewHolder.factsItemImage.setImageURI(factsCanadaRow.getImageHref());
             }else{
                 viewHolder.factsItemImage.setImageResource(R.mipmap.placeholder);
             }
@@ -85,16 +78,6 @@ public class FactsRecyclerAdapter extends RecyclerView.Adapter<FactsRecyclerAdap
     @Override
     public int getItemCount() {
         return factsList.size();
-    }
-
-    public void clear() {
-        factsList.clear();
-        notifyDataSetChanged();
-    }
-
-    public void addAll(List<FactsResponseRow> list) {
-        factsList.addAll(list);
-        notifyDataSetChanged();
     }
 
 

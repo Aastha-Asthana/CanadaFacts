@@ -56,7 +56,8 @@ public class FactsPresenterImpl implements FactsPresenter {
         isSwipeToRefresh = value;
     }
 
-    private List<FactsResponseRow> getFactsList(FactsResponse factsResponse){
+    @Override
+    public List<FactsResponseRow> getFactsList(FactsResponse factsResponse){
         return factsResponse.getRow();
     }
 }

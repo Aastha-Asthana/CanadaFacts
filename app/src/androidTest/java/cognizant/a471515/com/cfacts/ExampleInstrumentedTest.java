@@ -8,6 +8,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+
 import static android.support.test.espresso.Espresso.onView;
 
 import org.junit.Before;
@@ -39,31 +40,17 @@ import static org.junit.Assert.*;
 
 public class ExampleInstrumentedTest {
 
-    FactsUIInterface factsUIInterface = new MainListActivity();
-    FactsPresenterImpl factsPresenter = new FactsPresenterImpl(factsUIInterface);
-    private FactsServiceInteractor factsServiceInteractor = new FactsServiceClass();
-    private Handler mHandler;
 
     @Rule
     public ActivityTestRule<MainListActivity> activityActivityTestRule = new ActivityTestRule<MainListActivity>(MainListActivity.class);
 
-    @Before
-    public void setUpUI(){
-        factsPresenter.getFactsCanadaResponse();
-    }
 
     @Test
-    public void checkUI() throws Throwable{
-
-        activityActivityTestRule.runOnUiThread(new Runnable() {
-            public void run() {
-                onView(withId(R.id.swipeContainer)).check(matches(isDisplayed()));
-            }
-        });
-
+    public void checkUI() {
+        onView(withId(R.id.swipeContainer)).check(matches(isDisplayed()));
 
     }
 
-    }
+}
 
 

@@ -33,7 +33,6 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_list);
         initialize();
-        presenter.getFactsCanadaResponse();
     }
 
     /**
@@ -61,6 +60,7 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
     @Override
     protected void onStart() {
         super.onStart();
+        presenter.getFactsCanadaResponse();
     }
 
 
@@ -75,7 +75,7 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
         progress.setVisibility(View.GONE);
         swipeRefreshLayout.setRefreshing(false);
         if(factsCanadaRowList.size() > 0) {
-            recyclerAdapter.getDataList(factsCanadaRowList);
+            recyclerAdapter.setDataList(factsCanadaRowList);
             recyclerView.setAdapter(recyclerAdapter);
         }else{
             showNoDataUpdatedMessage();
