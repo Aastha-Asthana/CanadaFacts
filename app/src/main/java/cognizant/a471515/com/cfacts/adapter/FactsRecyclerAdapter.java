@@ -1,4 +1,4 @@
-package cognizant.a471515.com.cfacts.ui;
+package cognizant.a471515.com.cfacts.adapter;
 
 import android.content.Context;
 import android.net.Uri;
@@ -15,7 +15,6 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import cognizant.a471515.com.cfacts.Facts;
 import cognizant.a471515.com.cfacts.FactsUtils;
 import cognizant.a471515.com.cfacts.R;
 import cognizant.a471515.com.cfacts.models.FactsResponseRow;
@@ -32,6 +31,7 @@ public class FactsRecyclerAdapter extends RecyclerView.Adapter<FactsRecyclerAdap
 
     public void setDataList(List<FactsResponseRow> list){
         factsList = list;
+        notifyDataSetChanged();
     }
 
     @NonNull

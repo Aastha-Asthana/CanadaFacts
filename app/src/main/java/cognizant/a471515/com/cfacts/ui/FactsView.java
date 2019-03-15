@@ -4,7 +4,7 @@ import java.util.List;
 
 import cognizant.a471515.com.cfacts.models.FactsResponseRow;
 
-public interface FactsUIInterface {
+public interface FactsView {
 
     void updateUI(List<FactsResponseRow> factsCanadaRowList);
     void showSpinner();

@@ -1,6 +1,5 @@
 package cognizant.a471515.com.cfacts.ui;
 
-import android.app.ProgressDialog;
 import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -17,9 +16,10 @@ import android.widget.ProgressBar;
 import java.util.List;
 
 import cognizant.a471515.com.cfacts.R;
+import cognizant.a471515.com.cfacts.adapter.FactsRecyclerAdapter;
 import cognizant.a471515.com.cfacts.models.FactsResponseRow;
 
-public class MainListActivity extends AppCompatActivity implements FactsUIInterface {
+public class MainListActivity extends AppCompatActivity implements FactsView {
 
     private FactsPresenter presenter;
     private RecyclerView recyclerView;
@@ -55,12 +55,13 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         errorImage = (ImageView)findViewById(R.id.error_image);
         progress = (ProgressBar)findViewById(R.id.progressBar_cyclic);
+        recyclerView.setAdapter(recyclerAdapter);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.getFactsCanadaResponse();
+        presenter.getFactsResponse();
     }
 
 
@@ -76,7 +77,6 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
         swipeRefreshLayout.setRefreshing(false);
         if(factsCanadaRowList.size() > 0) {
             recyclerAdapter.setDataList(factsCanadaRowList);
-            recyclerView.setAdapter(recyclerAdapter);
         }else{
             showNoDataUpdatedMessage();
         }
@@ -150,7 +150,7 @@ public class MainListActivity extends AppCompatActivity implements FactsUIInterf
         @Override
         public void onRefresh() {
             presenter.setSwipeToRefresh(true);
-            presenter.getFactsCanadaResponse();
+            presenter.getFactsResponse();
         }
     };
 

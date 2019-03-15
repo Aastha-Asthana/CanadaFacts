@@ -10,4 +10,5 @@
     <string name="description"><u>Description</u></string>
     <string name="title_not_available">Title Not Available</string>
     <string name="description_not_available">Description Not Available</string>
+    <string name="retrofit">Retrofit</string>
 </resources>

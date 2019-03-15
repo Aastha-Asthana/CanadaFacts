@@ -2,6 +2,8 @@ package cognizant.a471515.com.cfacts.services;
 
 import android.util.Log;
 
+import cognizant.a471515.com.cfacts.FactsApp;
+import cognizant.a471515.com.cfacts.R;
 import cognizant.a471515.com.cfacts.listener.APIResponseListener;
 import cognizant.a471515.com.cfacts.models.FactsResponse;
 import retrofit2.Call;
@@ -11,7 +13,6 @@ import retrofit2.Response;
 public class FactsServiceClass implements FactsServiceInteractor {
 
     private FactsServiceInterface factsServiceInterface;
-    private int counter = 0;
 
     @Override
     public void getFactsList(final APIResponseListener listener) {
@@ -20,7 +21,7 @@ public class FactsServiceClass implements FactsServiceInteractor {
             call.enqueue(new Callback<FactsResponse>() {
                 @Override
                 public void onResponse(Call<FactsResponse> call, Response<FactsResponse> response) {
-                    Log.d("Retrofit", response.toString());
+                    Log.d(FactsApp.context.getResources().getString(R.string.retrofit), response.toString());
                     if (null != response && response.isSuccessful() && response.body() != null && response.code() == 200) {
                         FactsResponse factsResponse = response.body();
                         listener.onSuccess(factsResponse);

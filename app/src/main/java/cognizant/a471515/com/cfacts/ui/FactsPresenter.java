@@ -8,7 +8,7 @@ import cognizant.a471515.com.cfacts.models.FactsResponseRow;
 
 public interface FactsPresenter {
 
-    void getFactsCanadaResponse();
+    void getFactsResponse();
     void setSwipeToRefresh(boolean value);
     List<FactsResponseRow> getFactsList(FactsResponse factsResponse);
 }

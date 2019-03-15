@@ -1,26 +1,20 @@
 package cognizant.a471515.com.cfacts;
 
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
-
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import cognizant.a471515.com.cfacts.listener.APIResponseListener;
 import cognizant.a471515.com.cfacts.models.FactsResponse;
 import cognizant.a471515.com.cfacts.models.FactsResponseRow;
 import cognizant.a471515.com.cfacts.services.FactsServiceClass;
 import cognizant.a471515.com.cfacts.services.FactsServiceInteractor;
 import cognizant.a471515.com.cfacts.ui.FactsPresenterImpl;
-import cognizant.a471515.com.cfacts.ui.FactsRecyclerAdapter;
-import cognizant.a471515.com.cfacts.ui.FactsUIInterface;
+import cognizant.a471515.com.cfacts.adapter.FactsRecyclerAdapter;
+import cognizant.a471515.com.cfacts.ui.FactsView;
 import cognizant.a471515.com.cfacts.ui.MainListActivity;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -30,8 +24,7 @@ import static org.mockito.Mockito.when;
 public class ExampleUnitTest {
 
     private FactsServiceInteractor serviceInteractor = new FactsServiceClass();
-    FactsUIInterface uiInterface = new MainListActivity();
-
+    FactsView uiInterface = new MainListActivity();
 
     @Test
     public void addition_isCorrect() {
@@ -69,8 +62,16 @@ public class ExampleUnitTest {
     }
 
     @Test
+    public void presenterTest2(){
+        FactsPresenterImpl mockpresenter = mock(FactsPresenterImpl.class);
+        mockpresenter.getFactsResponse();
+
+
+    }
+
+    @Test
     public void adapterTest1(){
-        FactsRecyclerAdapter adapter = new FactsRecyclerAdapter(Facts.context);
+        FactsRecyclerAdapter adapter = new FactsRecyclerAdapter(FactsApp.context);
         adapter.setDataList(getFactsList());
         assertEquals(getFactsList().size(),adapter.getItemCount());
     }
@@ -104,7 +105,7 @@ public class ExampleUnitTest {
 
     private FactsResponse getFacts(){
         FactsResponse response = new FactsResponse();
-        response.setTitle("Facts Canada");
+        response.setTitle("FactsApp Canada");
         response.setRow(getFactsList());
         return response;
     }

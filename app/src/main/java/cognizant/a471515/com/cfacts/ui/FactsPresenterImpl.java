@@ -11,41 +11,41 @@ import cognizant.a471515.com.cfacts.services.FactsServiceClass;
 
 public class FactsPresenterImpl implements FactsPresenter {
 
-    private FactsUIInterface factsUiInterface;
+    private FactsView factsView;
     private FactsServiceInteractor factsServiceInteractor = new FactsServiceClass();
     private boolean isSwipeToRefresh = false;
 
-    public FactsPresenterImpl(FactsUIInterface factsUiInterface){
-        this.factsUiInterface = factsUiInterface;
+    public FactsPresenterImpl(FactsView factsView){
+        this.factsView = factsView;
     }
 
     @Override
-    public void getFactsCanadaResponse() {
+    public void getFactsResponse() {
         if(!isSwipeToRefresh)
-        factsUiInterface.showSpinner();
+        factsView.showSpinner();
         factsServiceInteractor.getFactsList(new APIResponseListener() {
             @Override
             public void onSuccess(Object dataObject) {
                 if(!isSwipeToRefresh)
-                factsUiInterface.hideSpinner();
-                factsUiInterface.updateUI(getFactsList((FactsResponse) dataObject));
-                factsUiInterface.updateActionBar(((FactsResponse) dataObject).getTitle());
+                factsView.hideSpinner();
+                factsView.updateUI(getFactsList((FactsResponse) dataObject));
+                factsView.updateActionBar(((FactsResponse) dataObject).getTitle());
             }
 
             @Override
             public void onError(Object errorObject) {
-                factsUiInterface.hideSpinner();
-                factsUiInterface.showErrorImage();
+                factsView.hideSpinner();
+                factsView.showErrorImage();
                 if(isSwipeToRefresh){
-                    factsUiInterface.showNoDataUpdatedMessage();
+                    factsView.showNoDataUpdatedMessage();
                     isSwipeToRefresh = false;
                 }else{
                     if(errorObject instanceof UnknownHostException){
-                        factsUiInterface.showNoInternetConnectionMessage();
+                        factsView.showNoInternetConnectionMessage();
                     }else{
-                       factsUiInterface.showErrorMessage();
+                       factsView.showErrorMessage();
                     }
-                    factsUiInterface.hideSpinner();
+                    factsView.hideSpinner();
                 }
             }
         });
